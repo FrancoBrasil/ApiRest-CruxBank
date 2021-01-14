@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -39,6 +39,7 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 
 	@GetMapping
+	@Cacheable(value = "listaCliente")
 	public Page<ClienteDTO> lista(@RequestParam(required = false) String nome, 
 			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10)Pageable paginacao) {
 
