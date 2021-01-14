@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orion.cruxbank.controllers.dto.LoginFormDTO;
+import com.orion.cruxbank.controllers.dto.TokenDTO;
 import com.orion.cruxbank.security.TokenService;
 
 @RestController
@@ -27,14 +28,14 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 	
 	@PostMapping
-	public ResponseEntity<?> autenticar(@RequestBody @Valid LoginFormDTO form) {
+	public ResponseEntity<TokenDTO> autenticar(@RequestBody @Valid LoginFormDTO form) {
 		UsernamePasswordAuthenticationToken dadosLogin = form.getDadosLogin();
 		
 		try {
 			Authentication authenticate = authManager.authenticate(dadosLogin);
 			String token = tokenService.gerarToken(authenticate);
 			System.out.println(token);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
 		} catch (AuthenticationException e) {
 			return ResponseEntity.badRequest().build();
 		}
