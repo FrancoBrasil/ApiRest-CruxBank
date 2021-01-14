@@ -1,5 +1,7 @@
 package com.orion.cruxbank.controllers.dto;
 
+import org.springframework.data.domain.Page;
+
 import com.orion.cruxbank.model.Conta;
 
 public class ContaDTO {
@@ -39,6 +41,10 @@ public class ContaDTO {
 
 	public void setNumero(byte numero) {
 		this.numero = numero;
+	}
+
+	public static Page<ContaDTO> converter(Page<Conta> contas) {
+		return contas.map(ContaDTO::new);
 	}
 
 }

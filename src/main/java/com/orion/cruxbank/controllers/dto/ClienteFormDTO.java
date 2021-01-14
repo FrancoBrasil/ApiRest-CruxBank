@@ -14,14 +14,6 @@ public class ClienteFormDTO {
 	private Long cpf;
 	@NotNull
 	private LocalDateTime dataNascimento;
-	
-	public ClienteFormDTO() {}
-
-	public ClienteFormDTO(Cliente cliente) {
-		nome = cliente.getNome();
-		cpf = cliente.getCpf();
-		dataNascimento = cliente.getDataNascimento();
-	}
 
 	public String getNome() {
 		return nome;

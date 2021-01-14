@@ -20,13 +20,13 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private LocalDateTime dataAbertura;
-	private Byte agencia;
-	private Byte numero;
+	private LocalDateTime dataAbertura = LocalDateTime.now();
+	private Byte agencia = geradorDeAgencia();
+	private Byte numero = geradorDeNumero();
 	@Enumerated(EnumType.STRING)
-	private Tipo tipoConta;
-	protected Double saldo;
-	private Boolean isAtiva;
+	private Tipo tipo;
+	protected Double saldo = 0.0;
+	private Boolean isAtiva = true;
 
 	@ManyToOne
 	private Cliente cliente;
@@ -34,14 +34,9 @@ public class Conta {
 	public Conta() {
 	}
 
-	public Conta(Tipo tipoConta, Cliente cliente) {
-		this.tipoConta = tipoConta;
-		this.dataAbertura = LocalDateTime.now();
-		this.agencia = geradorDeAgencia();
-		this.numero = geradorDeNumero();
-		this.saldo = 0.0;
+	public Conta(Tipo tipo, Cliente cliente) {
+		this.tipo = tipo;
 		this.cliente = cliente;
-		this.isAtiva = true;
 	}
 
 	public Long getId() {
@@ -76,12 +71,12 @@ public class Conta {
 		this.numero = numero;
 	}
 
-	public Tipo getTipoConta() {
-		return tipoConta;
+	public Tipo getTipo() {
+		return tipo;
 	}
 
-	public void setTipoConta(Tipo tipoConta) {
-		this.tipoConta = tipoConta;
+	public void setTipoConta(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
 	public Boolean getIsAtiva() {
