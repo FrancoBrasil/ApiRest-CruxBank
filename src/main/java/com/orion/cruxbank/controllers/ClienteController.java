@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +57,7 @@ public class ClienteController {
 
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaCliente", allEntries = true)
 	public ResponseEntity<ClienteDTO> cadastrar(@RequestBody @Valid ClienteFormDTO formDTO,
 			UriComponentsBuilder uriBuilder) {
 
@@ -78,6 +80,7 @@ public class ClienteController {
 
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaCliente", allEntries = true)
 	public ResponseEntity<ClienteDTO> atualizar(@PathVariable Long id,
 			@RequestBody @Valid AtualizaClienteFormDTO form) {
 		Optional<Cliente> optional = clienteRepository.findById(id);
@@ -91,6 +94,7 @@ public class ClienteController {
 
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaCliente", allEntries = true)
 	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		Optional<Cliente> optional = clienteRepository.findById(id);
 		if (optional.isPresent()) {
