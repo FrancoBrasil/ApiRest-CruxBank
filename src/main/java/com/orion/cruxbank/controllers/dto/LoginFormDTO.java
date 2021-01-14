@@ -1,5 +1,7 @@
 package com.orion.cruxbank.controllers.dto;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 public class LoginFormDTO {
 	
 	private String email;
@@ -18,6 +20,9 @@ public class LoginFormDTO {
 	
 	public String getSenha() {
 		return senha;
+	}
+	public UsernamePasswordAuthenticationToken getDadosLogin() {
+		return new UsernamePasswordAuthenticationToken(email, senha);
 	}
 	
 	
